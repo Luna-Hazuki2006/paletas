@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Edit "{{ post['titulo'] }}"{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+        <label for="titulo">Título</label>
+        <input name="titulo" id="titulo"
+            value="{{ request.form['titulo'] or post['titulo'] }}" required>
+        <label for="cuerpo">Cuerpo</label>
+        <textarea name="cuerpo" id="cuerpo">{{ request.form['cuerpo'] or post['cuerpo'] }}</textarea>
+        <input type="submit" value="Save">
+    </form>
+    <hr>
+    <form action="{{ url_for('blog.borrar', id=post['id']) }}" method="post">
+        <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+    </form>
+{% endblock %}
